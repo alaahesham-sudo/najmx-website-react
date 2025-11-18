@@ -44,6 +44,15 @@
   --text-7xl--line-height: 1;
   --text-7xl--letter-spacing: -0.0268em;
 
+  /* NajmX Night Sky Theme Colors */
+  --color-sky-deep: #0A0E27;
+  --color-sky-dark: #141B3D;
+  --color-star-gold: #F4A817;
+  --color-star-light: #FFD700;
+  --color-space-purple: #2D1B69;
+  --color-text-light: #B8C5D6;
+  --color-constellation: #1E2749;
+
   --animate-shine: shine 5s ease-in-out 500ms infinite;
   --animate-gradient: gradient 6s linear infinite;
 
@@ -89,5 +98,11 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
+  }
+  
+  /* Apply Night Sky theme to body */
+  body {
+    background-color: var(--color-sky-deep);
+    color: var(--color-text-light);
   }
 }
