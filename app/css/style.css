@@ -12,26 +12,26 @@
   --font-inter: var(--font-inter), sans-serif;
   --font-nacelle: var(--font-nacelle), sans-serif;
 
-  /* NajmX Night Sky Colors */
-  --color-gray-950: #0A0E27;
-  --color-gray-900: #141B3D;
-  --color-gray-800: #1E2749;
-  --color-gray-700: #2D3A5F;
-  --color-gray-600: #4A5A7F;
-  --color-gray-500: #6B7A9F;
-  --color-gray-400: #8C9ABF;
-  --color-gray-300: #B8C5D6;
-  --color-gray-200: #D4DCE8;
+  /* NajmX Night Sky Theme */
+  --color-gray-50: #f9fafb;
   --color-gray-100: #E8EDF5;
-  --color-gray-50: #F5F7FB;
+  --color-gray-200: #D4DCE8;
+  --color-gray-300: #B8C5D6;
+  --color-gray-400: #8C9ABF;
+  --color-gray-500: #6B7A9F;
+  --color-gray-600: #4A5A7F;
+  --color-gray-700: #2D3A5F;
+  --color-gray-800: #1E2749;
+  --color-gray-900: #141B3D;
+  --color-gray-950: #0A0E27;
 
-  --color-purple-900: #2D1B69;
-  --color-purple-800: #3D2685;
-  --color-purple-700: #4D31A1;
+  --color-purple-500: #4D31A1;
+  --color-purple-600: #3D2685;
+  --color-purple-700: #2D1B69;
 
-  --color-yellow-500: #F4A817;
   --color-yellow-400: #FFD700;
-  --color-yellow-300: #FFE44D;
+  --color-yellow-500: #F4A817;
+  --color-yellow-600: #E09615;
 
   --text-xs: 0.8125rem;
   --text-xs--line-height: 1.5384;
