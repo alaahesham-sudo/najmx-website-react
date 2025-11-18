@@ -12,6 +12,27 @@
   --font-inter: var(--font-inter), sans-serif;
   --font-nacelle: var(--font-nacelle), sans-serif;
 
+  /* NajmX Night Sky Colors */
+  --color-gray-950: #0A0E27;
+  --color-gray-900: #141B3D;
+  --color-gray-800: #1E2749;
+  --color-gray-700: #2D3A5F;
+  --color-gray-600: #4A5A7F;
+  --color-gray-500: #6B7A9F;
+  --color-gray-400: #8C9ABF;
+  --color-gray-300: #B8C5D6;
+  --color-gray-200: #D4DCE8;
+  --color-gray-100: #E8EDF5;
+  --color-gray-50: #F5F7FB;
+
+  --color-purple-900: #2D1B69;
+  --color-purple-800: #3D2685;
+  --color-purple-700: #4D31A1;
+
+  --color-yellow-500: #F4A817;
+  --color-yellow-400: #FFD700;
+  --color-yellow-300: #FFE44D;
+
   --text-xs: 0.8125rem;
   --text-xs--line-height: 1.5384;
   --text-sm: 0.875rem;
@@ -44,15 +65,6 @@
   --text-7xl--line-height: 1;
   --text-7xl--letter-spacing: -0.0268em;
 
-  /* NajmX Night Sky Theme Colors */
-  --color-sky-deep: #0A0E27;
-  --color-sky-dark: #141B3D;
-  --color-star-gold: #F4A817;
-  --color-star-light: #FFD700;
-  --color-space-purple: #2D1B69;
-  --color-text-light: #B8C5D6;
-  --color-constellation: #1E2749;
-
   --animate-shine: shine 5s ease-in-out 500ms infinite;
   --animate-gradient: gradient 6s linear infinite;
 
@@ -83,26 +95,12 @@
   }
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
-  
-  /* Apply Night Sky theme to body */
-  body {
-    background-color: var(--color-sky-deep);
-    color: var(--color-text-light);
+    border-color: var(--color-gray-800, currentColor);
   }
 }
