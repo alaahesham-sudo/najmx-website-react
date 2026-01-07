@@ -85,7 +85,7 @@ export default function Header() {
               </div>
               {openDropdown === 'products' && (
                 <div 
-                  ref={(el) => dropdownRef.current['products'] = el}
+                  ref={(el) => { dropdownRef.current['products'] = el; }}
                   className="absolute top-full left-0 mt-2 w-56 rounded-xl bg-gray-900/98 backdrop-blur-xl border border-gray-700/60 shadow-2xl py-2 overflow-hidden"
                   style={{ zIndex: 1002, animation: 'fadeInDown 0.2s ease-out', pointerEvents: 'auto' }}
                 >
@@ -145,7 +145,7 @@ export default function Header() {
               </div>
               {openDropdown === 'solutions' && (
                 <div 
-                  ref={(el) => dropdownRef.current['solutions'] = el}
+                  ref={(el) => { dropdownRef.current['solutions'] = el; }}
                   className="absolute top-full left-0 mt-2 w-64 rounded-xl bg-gray-900/98 backdrop-blur-xl border border-gray-700/60 shadow-2xl py-2 overflow-hidden"
                   style={{ zIndex: 1002, animation: 'fadeInDown 0.2s ease-out', pointerEvents: 'auto' }}
                 >
@@ -211,7 +211,7 @@ export default function Header() {
               </div>
               {openDropdown === 'why' && (
                 <div 
-                  ref={(el) => dropdownRef.current['why'] = el}
+                  ref={(el) => { dropdownRef.current['why'] = el; }}
                   className="absolute top-full left-0 mt-2 w-52 rounded-xl bg-gray-900/98 backdrop-blur-xl border border-gray-700/60 shadow-2xl py-2 overflow-hidden"
                   style={{ zIndex: 1002, animation: 'fadeInDown 0.2s ease-out', pointerEvents: 'auto' }}
                 >
