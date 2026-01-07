@@ -277,9 +277,8 @@ export default function Header() {
             </div>
             
             {/* CTA Button */}
-            <a
+            <Link
               href="/contact"
-              onClick={(e) => { e.preventDefault(); router.push('/contact'); }}
               className="group relative inline-flex items-center gap-2 bg-gradient-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] h-10 px-5 text-base font-medium text-white shadow-lg hover:shadow-indigo-500/50 hover:bg-[length:100%_150%] transition-all duration-300 rounded-lg overflow-hidden cursor-pointer whitespace-nowrap"
               style={{ pointerEvents: 'auto' }}
             >
@@ -290,7 +289,7 @@ export default function Header() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
