@@ -91,25 +91,25 @@ export default function Header() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/8 via-purple-500/5 to-indigo-500/8 pointer-events-none"></div>
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
-                  <Link href="/products/najmvoip" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/products/najmvoip" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>NajmVoIP</span>
                     </span>
                   </Link>
-                  <Link href="/products/najmfax" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/products/najmfax" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>NajmFAX</span>
                     </span>
                   </Link>
-                  <Link href="/products/najmagent" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/products/najmagent" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>NajmAgent</span>
                     </span>
                   </Link>
-                  <Link href="/products/najmnetwork" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/products/najmnetwork" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>NajmNetwork</span>
@@ -151,31 +151,31 @@ export default function Header() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/8 via-purple-500/5 to-indigo-500/8 pointer-events-none"></div>
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
-                  <Link href="/services/voip-solutions" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/services/voip-solutions" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>VoIP</span>
                     </span>
                   </Link>
-                  <Link href="/services/call-center-services" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/services/call-center-services" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>Contact Center Operations</span>
                     </span>
                   </Link>
-                  <Link href="/services/fax-services" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/services/fax-services" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>Cloud Fax Services</span>
                     </span>
                   </Link>
-                  <Link href="/services/ai-agent" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/services/ai-agent" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>Conversational AI Automation</span>
                     </span>
                   </Link>
-                  <Link href="/services/network-consultancy" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/services/network-consultancy" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>Network Architecture</span>
@@ -217,19 +217,19 @@ export default function Header() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/8 via-purple-500/5 to-indigo-500/8 pointer-events-none"></div>
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
-                  <Link href="/about" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/about" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>About Us</span>
                     </span>
                   </Link>
-                  <Link href="/diversity" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/diversity" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>Diversity</span>
                     </span>
                   </Link>
-                  <Link href="/careers" className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
+                  <Link href="/careers" onClick={() => setOpenDropdown(null)} className="relative block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-purple-500/10 transition-all group">
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity"><StarIcon className="w-3 h-3" glow /></span>
                       <span>Careers</span>
