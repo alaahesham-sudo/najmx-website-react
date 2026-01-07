@@ -85,27 +85,30 @@ export default function About() {
                 <h3 className="font-nacelle text-lg font-semibold text-gray-200 mb-3">
                   Global Offices
                 </h3>
-                <div className="flex flex-col items-center gap-4 text-indigo-200/65">
-                  <div className="flex items-center gap-2">
-                    <div className="relative flex-shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-                      <div className="absolute inset-0 w-2 h-2 rounded-full bg-green-400 animate-ping"></div>
-                    </div>
-                    <span>🇪🇬 Cairo, Egypt (Headquarters)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="relative flex-shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
-                      <div className="absolute inset-0 w-2 h-2 rounded-full bg-blue-400 animate-ping"></div>
-                    </div>
-                    <span>🇬🇧 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ, UK</span>
-                  </div>
-                  <div className="flex items-center gap-2">
+                <div className="flex flex-col items-start gap-4 text-indigo-200/65">
+                  <div className="flex items-center gap-3 w-full">
                     <div className="relative flex-shrink-0">
                       <div className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></div>
                       <div className="absolute inset-0 w-2 h-2 rounded-full bg-indigo-400 animate-ping"></div>
                     </div>
-                    <span>🇺🇸 30 N Gould St Ste R, Sheridan, WY 82801, USA</span>
+                    <span className="flex-shrink-0">🇺🇸</span>
+                    <span>325 North St. Paul Street Suite 3100, Dallas, TX 75201, USA (Headquarters)</span>
+                  </div>
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="relative flex-shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                      <div className="absolute inset-0 w-2 h-2 rounded-full bg-green-400 animate-ping"></div>
+                    </div>
+                    <span className="flex-shrink-0">🇪🇬</span>
+                    <span>Cairo, Egypt</span>
+                  </div>
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="relative flex-shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
+                      <div className="absolute inset-0 w-2 h-2 rounded-full bg-blue-400 animate-ping"></div>
+                    </div>
+                    <span className="flex-shrink-0">🇬🇧</span>
+                    <span>71-75 Shelton Street, Covent Garden, London, WC2H 9JQ, UK</span>
                   </div>
                 </div>
               </div>

@@ -90,7 +90,7 @@ export default function Features() {
                 Flexible Packages
               </h3>
               <p className="text-indigo-200/65">
-                Choose from Starter ⭐, Pro ⭐⭐, or Enterprise ⭐⭐⭐ packages tailored to your needs. Transparent pricing with no hidden fees.
+                Choose from Starter, Pro, or Enterprise packages tailored to your needs. Transparent pricing with no hidden fees.
               </p>
             </article>
             <article>

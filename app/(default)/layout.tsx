@@ -5,7 +5,9 @@ import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+import Header from "@/components/ui/header";
 import Footer from "@/components/ui/footer";
+import LinkedInButton from "@/components/linkedin-button";
 
 export default function DefaultLayout({
   children,
@@ -19,13 +21,14 @@ export default function DefaultLayout({
       duration: 600,
       easing: "ease-out-sine",
     });
-  });
+  }, []);
 
   return (
     <>
-      <main className="relative flex grow flex-col">{children}</main>
-
+      <Header />
+      <main className="relative flex grow flex-col pt-20">{children}</main>
       <Footer />
+      <LinkedInButton />
     </>
   );
 }

@@ -1,0 +1,52 @@
+Updated Careers Script - Copy and paste this into your Google Apps Script:
+
+function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp.openById('10NcQDd0eHfhIWe60raAdKx0CqRdJQZ1FpxJ80bqqxbY')
+      .getSheetByName('careers') || SpreadsheetApp.openById('10NcQDd0eHfhIWe60raAdKx0CqRdJQZ1FpxJ80bqqxbY')
+      .getSheets()[0]; // Use first sheet if 'careers' sheet doesn't exist
+    
+    const data = JSON.parse(e.postData.contents);
+    
+    // Add headers if sheet is empty
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        'Timestamp',
+        'Name',
+        'Email',
+        'Phone',
+        'Job Title',
+        'Experience',
+        'Country',
+        'How did you hear about us',
+        'Resume/CV Link',
+        'Cover Letter'
+      ]);
+    }
+    
+    // Append the data
+    sheet.appendRow([
+      data.timestamp || new Date(),
+      data.name,
+      data.email,
+      data.phone,
+      data.jobTitle,
+      data.experience,
+      data.country,
+      data.hearAbout,
+      data.resume,
+      data.coverLetter || ''
+    ]);
+    
+    return ContentService.createTextOutput(JSON.stringify({
+      success: true,
+      message: 'Data saved successfully'
+    })).setMimeType(ContentService.MimeType.JSON);
+    
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      success: false,
+      error: error.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}

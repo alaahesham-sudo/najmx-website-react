@@ -20,6 +20,8 @@ export default function PageIllustration({
           width={846}
           height={594}
           alt="Page illustration"
+          loading="lazy"
+          fetchPriority="low"
         />
       </div>
       {multiple && (
@@ -34,6 +36,8 @@ export default function PageIllustration({
               width={760}
               height={668}
               alt="Blurred shape"
+              loading="lazy"
+              fetchPriority="low"
             />
           </div>
           <div
@@ -46,6 +50,8 @@ export default function PageIllustration({
               width={760}
               height={668}
               alt="Blurred shape"
+              loading="lazy"
+              fetchPriority="low"
             />
           </div>
         </>

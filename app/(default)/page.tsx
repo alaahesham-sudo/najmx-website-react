@@ -8,13 +8,7 @@ export const metadata: Metadata = {
 import Starfield from "@/components/starfield";
 import PageIllustration from "@/components/page-illustration";
 import Hero from "@/components/hero-home";
-import Workflows from "@/components/workflows";
-import Features from "@/components/features";
-import Testimonials from "@/components/testimonials";
-import About from "@/components/about";
 import Pricing from "@/components/pricing";
-import Cta from "@/components/cta";
-import WhatsAppButton from "@/components/whatsapp-button";
 import BackToTop from "@/components/back-to-top";
 
 export default function Home() {
@@ -23,13 +17,7 @@ export default function Home() {
       <Starfield />
       <PageIllustration />
       <Hero />
-      <Workflows />
-      <Features />
-      <Testimonials />
-      <About />
       <Pricing />
-      <Cta />
-      <WhatsAppButton />
       <BackToTop />
     </>
   );

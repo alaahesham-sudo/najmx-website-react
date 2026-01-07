@@ -1,21 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import BlurredShape from "@/public/images/blurred-shape.svg";
+import Starfield from "@/components/starfield";
+import PageIllustration from "@/components/page-illustration";
 import { validatePhoneByCountry } from "@/utils/phoneValidation";
 
-export default function Cta() {
+export default function CareersPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    company: "",
     phone: "",
+    jobTitle: "",
+    experience: "",
     country: "",
     hearAbout: "",
-    department: "",
-    service: "",
-    message: "",
+    resume: "",
+    coverLetter: "",
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,23 +34,21 @@ export default function Cta() {
       newErrors.email = "Please enter a valid email address";
     }
 
-    if (!formData.company.trim()) {
-      newErrors.company = "Company name is required";
-    }
-
-    if (formData.phone && formData.phone.trim()) {
+    if (!formData.phone || !formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else {
       const phoneValidation = validatePhoneByCountry(formData.phone, formData.country || '');
       if (!phoneValidation.valid) {
         newErrors.phone = phoneValidation.error || "Invalid phone number";
       }
     }
 
-    if (!formData.department) {
-      newErrors.department = "Please select a department";
+    if (!formData.jobTitle.trim()) {
+      newErrors.jobTitle = "Job title is required";
     }
 
-    if (!formData.service) {
-      newErrors.service = "Please select a reason";
+    if (!formData.experience) {
+      newErrors.experience = "Please select your experience level";
     }
 
     if (!formData.country) {
@@ -61,85 +59,24 @@ export default function Cta() {
       newErrors.hearAbout = "Please let us know how you heard about us";
     }
 
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required";
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = "Message must be at least 10 characters";
+    if (!formData.resume.trim()) {
+      newErrors.resume = "Resume/CV link is required";
+    } else {
+      try {
+        new URL(formData.resume);
+      } catch {
+        newErrors.resume = "Please enter a valid URL (e.g., https://drive.google.com/...)";
+      }
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      setSubmitStatus({ type: 'error', message: 'Please fix the errors below and try again.' });
-      // Scroll to first error
-      const firstErrorField = Object.keys(errors)[0];
-      if (firstErrorField) {
-        document.getElementById(firstErrorField)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: '' });
-
-    try {
-      const response = await fetch('/api/submit-contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        setSubmitStatus({ type: 'success', message: result.message || 'Your message has been submitted successfully!' });
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          company: "",
-          phone: "",
-          country: "",
-          hearAbout: "",
-          department: "",
-          service: "",
-          message: "",
-        });
-        setErrors({});
-        // Scroll to top to show success message
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        setSubmitStatus({ type: 'error', message: result.error || 'Failed to submit message. Please try again.' });
-        if (result.field) {
-          setErrors(prev => ({ ...prev, [result.field]: result.error }));
-        }
-        if (result.missingFields) {
-          const missingErrors: { [key: string]: string } = {};
-          result.missingFields.forEach((field: string) => {
-            missingErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
-          });
-          setErrors(prev => ({ ...prev, ...missingErrors }));
-        }
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitStatus({ type: 'error', message: 'An error occurred. Please try again later.' });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const validateField = (name: string, value: string) => {
     const newErrors: { [key: string]: string } = {};
     
-    if (name === 'phone' && value && value.trim()) {
+    if (name === 'phone') {
       const phoneValidation = validatePhoneByCountry(value, formData.country || '');
       if (!phoneValidation.valid) {
         newErrors.phone = phoneValidation.error || "Invalid phone number";
@@ -151,10 +88,7 @@ export default function Cta() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData(prev => ({ ...prev, [name]: value }));
     
     // If country changes, re-validate phone
     if (name === 'country' && formData.phone) {
@@ -192,27 +126,126 @@ export default function Cta() {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      setSubmitStatus({ type: 'error', message: 'Please fix the errors below and try again.' });
+      // Scroll to first error
+      const firstErrorField = Object.keys(errors)[0];
+      if (firstErrorField) {
+        document.getElementById(firstErrorField)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      const response = await fetch('/api/submit-careers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus({ type: 'success', message: result.message || 'Application submitted successfully!' });
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          jobTitle: "",
+          experience: "",
+          country: "",
+          hearAbout: "",
+          resume: "",
+          coverLetter: "",
+        });
+        setErrors({});
+        // Scroll to top to show success message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        setSubmitStatus({ type: 'error', message: result.error || 'Failed to submit application. Please try again.' });
+        if (result.field) {
+          setErrors(prev => ({ ...prev, [result.field]: result.error }));
+        }
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus({ type: 'error', message: 'An error occurred. Please try again later.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <section className="relative overflow-hidden" id="contact">
-      <div
-        className="pointer-events-none absolute bottom-0 left-1/2 -z-10 -mb-24 ml-20 -translate-x-1/2"
-        aria-hidden="true"
-      >
-        <Image
-          className="max-w-none"
-          src={BlurredShape}
-          width={760}
-          height={668}
-          alt="Blurred shape"
-        />
-      </div>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="bg-gradient-to-r from-transparent via-gray-800/50 py-12 md:py-20">
-          <div className="mx-auto max-w-3xl">
-            <form 
-              onSubmit={handleSubmit}
-              className="rounded-2xl bg-gradient-to-br from-gray-900/50 via-gray-800/25 to-gray-900/50 p-8 border border-gray-800 shadow-xl"
-            >
+    <>
+      <Starfield />
+      <PageIllustration />
+      <section className="relative">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-32 pb-20">
+          {/* Hero Section */}
+          <div className="text-center mb-16" data-aos="fade-up">
+            <div className="inline-flex items-center gap-3 pb-3 before:h-px before:w-8 before:bg-gradient-to-r before:from-transparent before:to-indigo-200/50 after:h-px after:w-8 after:bg-gradient-to-l after:from-transparent after:to-indigo-200/50">
+              <span className="inline-flex bg-gradient-to-r from-indigo-500 to-indigo-200 bg-clip-text text-transparent">
+                Careers
+              </span>
+            </div>
+            <h1 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-4xl font-semibold text-transparent md:text-5xl">
+              We're Hiring!
+            </h1>
+            <h2 className="text-2xl font-semibold text-gray-200 mb-4">
+              Join Our Family
+            </h2>
+            <p className="text-lg text-indigo-200/65 max-w-3xl mx-auto">
+              If you're interested in joining NajmX, start by applying here. We're looking for talented individuals who share our passion for innovation and excellence.
+            </p>
+          </div>
+
+          {/* Why Join Us */}
+          <div className="grid gap-6 md:grid-cols-3 mb-16" data-aos="fade-up" data-aos-delay="100">
+            <div className="rounded-2xl bg-gradient-to-br from-gray-900/50 via-gray-800/25 to-gray-900/50 p-6 border border-gray-800 hover:border-indigo-500/30 transition-all text-center">
+              <div className="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-gray-200 mb-2">Global Opportunities</h3>
+              <p className="text-sm text-indigo-200/65">Work with teams across Cairo, London, and Texas. Remote-friendly positions available.</p>
+            </div>
+
+            <div className="rounded-2xl bg-gradient-to-br from-gray-900/50 via-gray-800/25 to-gray-900/50 p-6 border border-gray-800 hover:border-indigo-500/30 transition-all text-center">
+              <div className="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-gray-200 mb-2">Growth & Learning</h3>
+              <p className="text-sm text-indigo-200/65">Continuous professional development and opportunities to work with cutting-edge technology.</p>
+            </div>
+
+            <div className="rounded-2xl bg-gradient-to-br from-gray-900/50 via-gray-800/25 to-gray-900/50 p-6 border border-gray-800 hover:border-indigo-500/30 transition-all text-center">
+              <div className="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-gray-200 mb-2">Inclusive Culture</h3>
+              <p className="text-sm text-indigo-200/65">Diverse team where every voice matters. Equal opportunity for all qualified candidates.</p>
+            </div>
+          </div>
+
+          {/* Application Form */}
+          <div className="max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            <div className="rounded-2xl bg-gradient-to-br from-gray-900/50 via-gray-800/25 to-gray-900/50 p-8 border border-gray-800">
+              <h2 className="font-nacelle text-2xl font-semibold text-indigo-200/65 mb-6 text-center">Application Form</h2>
+              
               {/* Status Messages */}
               {submitStatus.type === 'success' && (
                 <div className="mb-6 rounded-lg bg-green-500/20 border-2 border-green-500/50 p-4 flex items-center gap-3 animate-fadeIn">
@@ -231,8 +264,8 @@ export default function Cta() {
                   <p className="text-red-200 font-medium">{submitStatus.message}</p>
                 </div>
               )}
-
-              <div className="grid gap-6 md:grid-cols-2">
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
                     Full Name *
@@ -245,7 +278,7 @@ export default function Cta() {
                     value={formData.name}
                     onChange={handleChange}
                     className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${
-                      errors.name ? "border-red-500 focus:ring-red-500/20" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
+                      errors.name ? "border-red-500 focus:ring-red-500/20 focus:border-red-500" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
                     }`}
                     placeholder="John Doe"
                   />
@@ -269,9 +302,9 @@ export default function Cta() {
                     value={formData.email}
                     onChange={handleChange}
                     className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${
-                      errors.email ? "border-red-500 focus:ring-red-500/20" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
+                      errors.email ? "border-red-500 focus:ring-red-500/20 focus:border-red-500" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
                     }`}
-                    placeholder="john@company.com"
+                    placeholder="john@example.com"
                   />
                   {errors.email && <p className="text-xs text-red-400 mt-1 flex items-center gap-1">
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
@@ -282,42 +315,19 @@ export default function Cta() {
                 </div>
 
                 <div>
-                  <label htmlFor="company" className="block text-sm font-medium text-gray-200 mb-2">
-                    Company Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    required
-                    value={formData.company}
-                    onChange={handleChange}
-                    className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${
-                      errors.company ? "border-red-500 focus:ring-red-500/20" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
-                    }`}
-                    placeholder="Your Company Ltd"
-                  />
-                  {errors.company && <p className="text-xs text-red-400 mt-1 flex items-center gap-1">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                    </svg>
-                    {errors.company}
-                  </p>}
-                </div>
-
-                <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-200 mb-2">
-                    Phone Number
+                    Phone Number *
                   </label>
                   <input
                     type="tel"
                     id="phone"
                     name="phone"
+                    required
                     value={formData.phone}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${
-                      errors.phone ? "border-red-500 focus:ring-red-500/20" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
+                      errors.phone ? "border-red-500 focus:ring-red-500/20 focus:border-red-500" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
                     }`}
                     placeholder="+1 234 567 8900"
                   />
@@ -326,6 +336,59 @@ export default function Cta() {
                       <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                     </svg>
                     {errors.phone}
+                  </p>}
+                </div>
+
+                <div>
+                  <label htmlFor="jobTitle" className="block text-sm font-medium text-gray-200 mb-2">
+                    Job Title / Role *
+                  </label>
+                  <input
+                    type="text"
+                    id="jobTitle"
+                    name="jobTitle"
+                    required
+                    value={formData.jobTitle}
+                    onChange={handleChange}
+                    className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${
+                      errors.jobTitle ? "border-red-500 focus:ring-red-500/20 focus:border-red-500" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
+                    }`}
+                    placeholder="e.g., Software Engineer, Sales Manager"
+                  />
+                  {errors.jobTitle && <p className="text-xs text-red-400 mt-1 flex items-center gap-1">
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors.jobTitle}
+                  </p>}
+                </div>
+
+                <div>
+                  <label htmlFor="experience" className="block text-sm font-medium text-gray-200 mb-2">
+                    Years of Experience *
+                  </label>
+                  <select
+                    id="experience"
+                    name="experience"
+                    required
+                    value={formData.experience}
+                    onChange={handleChange}
+                    className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 focus:outline-none focus:ring-2 transition-all ${
+                      errors.experience ? "border-red-500 focus:ring-red-500/20 focus:border-red-500" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
+                    }`}
+                  >
+                    <option value="">Select experience level</option>
+                    <option value="0-1">0-1 years</option>
+                    <option value="1-3">1-3 years</option>
+                    <option value="3-5">3-5 years</option>
+                    <option value="5-10">5-10 years</option>
+                    <option value="10+">10+ years</option>
+                  </select>
+                  {errors.experience && <p className="text-xs text-red-400 mt-1 flex items-center gap-1">
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {errors.experience}
                   </p>}
                 </div>
 
@@ -340,7 +403,7 @@ export default function Cta() {
                     value={formData.country}
                     onChange={handleChange}
                     className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 focus:outline-none focus:ring-2 transition-all ${
-                      errors.country ? "border-red-500 focus:ring-red-500/20" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
+                      errors.country ? "border-red-500 focus:ring-red-500/20 focus:border-red-500" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
                     }`}
                   >
                     <option value="">Select your country</option>
@@ -410,7 +473,7 @@ export default function Cta() {
                     value={formData.hearAbout}
                     onChange={handleChange}
                     className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 focus:outline-none focus:ring-2 transition-all ${
-                      errors.hearAbout ? "border-red-500 focus:ring-red-500/20" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
+                      errors.hearAbout ? "border-red-500 focus:ring-red-500/20 focus:border-red-500" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
                     }`}
                   >
                     <option value="">Select an option</option>
@@ -432,98 +495,53 @@ export default function Cta() {
                   </p>}
                 </div>
 
-                <div className="md:col-span-2">
-                  <label htmlFor="department" className="block text-sm font-medium text-gray-200 mb-2">
-                    Department *
+                <div>
+                  <label htmlFor="resume" className="block text-sm font-medium text-gray-200 mb-2">
+                    Resume / CV Link *
                   </label>
-                  <select
-                    id="department"
-                    name="department"
+                  <input
+                    type="url"
+                    id="resume"
+                    name="resume"
                     required
-                    value={formData.department}
+                    value={formData.resume}
                     onChange={handleChange}
-                    className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 focus:outline-none focus:ring-2 transition-all ${
-                      errors.department ? "border-red-500 focus:ring-red-500/20" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
+                    className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 transition-all ${
+                      errors.resume ? "border-red-500 focus:ring-red-500/20 focus:border-red-500" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
                     }`}
-                  >
-                    <option value="">Select a department</option>
-                    <option value="sales">Sales</option>
-                    <option value="support">Support</option>
-                    <option value="general">General</option>
-                  </select>
-                  {errors.department && <p className="text-xs text-red-400 mt-1 flex items-center gap-1">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                    </svg>
-                    {errors.department}
-                  </p>}
-                </div>
-
-                <div className="md:col-span-2">
-                  <label htmlFor="service" className="block text-sm font-medium text-gray-200 mb-2">
-                    Reason for Discussion *
-                  </label>
-                  <select
-                    id="service"
-                    name="service"
-                    required
-                    value={formData.service}
-                    onChange={handleChange}
-                    className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 focus:outline-none focus:ring-2 transition-all ${
-                      errors.service ? "border-red-500 focus:ring-red-500/20" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
-                    }`}
-                  >
-                    <option value="">Select a reason</option>
-                    <option value="VoIP Solutions">VoIP Solutions</option>
-                    <option value="Call Center Services">Call Center Services</option>
-                    <option value="FAX Services">FAX Services</option>
-                    <option value="AI Agent Services">AI Agent Services</option>
-                    <option value="Network Consultancy">Network Consultancy</option>
-                    <option value="General Inquiry">General Inquiry</option>
-                    <option value="Other">Other</option>
-                  </select>
-                  {errors.service && <p className="text-xs text-red-400 mt-1 flex items-center gap-1">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                    </svg>
-                    {errors.service}
-                  </p>}
-                </div>
-
-                <div className="md:col-span-2">
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-200 mb-2">
-                    Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={5}
-                    value={formData.message}
-                    onChange={handleChange}
-                    className={`w-full rounded-lg bg-gray-900/50 border px-4 py-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 transition-all resize-none ${
-                      errors.message ? "border-red-500 focus:ring-red-500/20" : "border-gray-700 focus:border-indigo-500 focus:ring-indigo-500/20"
-                    }`}
-                    placeholder="Tell us about your needs, project requirements, or any questions you have..."
+                    placeholder="https://drive.google.com/... or https://linkedin.com/in/..."
                   />
-                  {errors.message ? (
+                  {errors.resume ? (
                     <p className="text-xs text-red-400 mt-1 flex items-center gap-1">
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                       </svg>
-                      {errors.message}
+                      {errors.resume}
                     </p>
                   ) : (
-                    <p className="text-xs text-gray-500 mt-1">Minimum 10 characters required</p>
+                    <p className="text-xs text-gray-500 mt-1">Provide a link to your resume (Google Drive, Dropbox, LinkedIn, etc.)</p>
                   )}
                 </div>
-              </div>
 
-              <div className="mt-8 text-center">
+                <div>
+                  <label htmlFor="coverLetter" className="block text-sm font-medium text-gray-200 mb-2">
+                    Cover Letter (Optional)
+                  </label>
+                  <textarea
+                    id="coverLetter"
+                    name="coverLetter"
+                    rows={4}
+                    value={formData.coverLetter}
+                    onChange={handleChange}
+                    className="w-full rounded-lg bg-gray-900/50 border border-gray-700 px-4 py-3 text-gray-200 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                    placeholder="Tell us why you'd like to join NajmX..."
+                  />
+                </div>
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-t from-indigo-600 to-indigo-500 px-8 py-4 text-white font-medium shadow-lg hover:shadow-xl transition-all hover:scale-105 cursor-pointer ${
+                  className={`w-full inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-t from-indigo-600 to-indigo-500 px-8 py-4 text-white font-medium shadow-lg hover:shadow-xl transition-all hover:scale-105 ${
                     isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
                   }`}
                 >
@@ -537,58 +555,16 @@ export default function Cta() {
                     </>
                   ) : (
                     <>
-                      Submit Request
+                      Submit Application
                       <span className="text-white/50">→</span>
                     </>
                   )}
                 </button>
-              </div>
-            </form>
-
-            <div className="mt-12">
-              <div className="rounded-2xl bg-gradient-to-br from-indigo-900/20 via-indigo-800/10 to-gray-900/50 p-8 border border-indigo-800/30 hover:border-indigo-500/50 transition-all relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center border border-indigo-500/30">
-                      <svg className="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="font-nacelle text-xl font-semibold text-gray-200 mb-1">
-                        Visit Our Headquarters
-                      </h3>
-                      <p className="text-sm text-indigo-200/65">Dallas, Texas</p>
-                    </div>
-                  </div>
-                  <div className="mb-6 p-4 rounded-xl bg-gray-900/30 border border-gray-800/50">
-                    <p className="text-indigo-200/65 mb-2">
-                      <span className="text-gray-300 font-medium">Address:</span>
-                    </p>
-                    <p className="text-gray-200">
-                      325 North St. Paul Street Suite 3100<br />
-                      Dallas, TX 75201, USA
-                    </p>
-                  </div>
-                  <a
-                    href="https://www.google.com/maps/place/325+North+St.+Paul+Street+Suite+3100+Dallas,+TX+75201,+USA/@32.7835165,-96.797137,3a,75y,219.46h,90t/data=!3m4!1e1!3m2!1s-UTPw8RKDjc-CuvumoY4hg!2e0!4m2!3m1!1s0x864e9921f4f27e37:0x11d3b32e07ea77d6?sa=X&ved=1t:3780&ictx=111"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 rounded-lg bg-gradient-to-t from-indigo-600 to-indigo-500 px-6 py-3 text-white font-medium shadow-lg hover:shadow-xl transition-all hover:scale-105 group/link"
-                  >
-                    <svg className="w-5 h-5 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                    Get Directions
-                  </a>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
