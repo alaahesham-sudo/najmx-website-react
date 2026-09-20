@@ -1,85 +1,231 @@
+
 import type { Metadata } from "next";
-import Starfield from "@/components/starfield";
-import PageIllustration from "@/components/page-illustration";
-import Features from "@/components/features";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Services - NajmX | Enterprise Telecommunications",
-  description: "Comprehensive BPO solutions designed to accelerate your business growth and maximize operational efficiency.",
+  title: "VICIdial, VoIP, DID, PBX & Call Center Services",
+
+  description:
+    "NajmX provides VICIdial hosting, VoIP and SIP services, DID numbers, PBX and call center systems, managed servers, and technical support for calling operations.",
+
+  alternates: {
+    canonical: "https://najmx.net/services",
+  },
+
+  openGraph: {
+    title: "VICIdial, VoIP, DID, PBX & Call Center Services",
+    description:
+      "Call center infrastructure and telecommunications services including VICIdial hosting, SIP, DID numbers, PBX systems, managed servers, and technical support.",
+    url: "https://najmx.net/services",
+    type: "website",
+  },
 };
+
+
+const services = [
+  {
+    number: "01",
+    title: "VICIdial & Dialer Hosting",
+    description:
+      "Managed VICIdial infrastructure for call centers, from installation and configuration to SIP integration and ongoing support.",
+    features: [
+      "VICIdial installation & configuration",
+      "Campaign & IVR setup",
+      "SIP integration",
+      "Server management",
+      "Monitoring & maintenance",
+      "Technical support",
+    ],
+    action: "Discuss VICIdial Hosting",
+  },
+  {
+    number: "02",
+    title: "VoIP & SIP Services",
+    description:
+      "Voice connectivity for VICIdial, PBX, and business calling systems with SIP routing and carrier integration.",
+    features: [
+      "SIP connectivity",
+      "Inbound & outbound calling",
+      "Voice routing",
+      "Carrier integration",
+      "SIP configuration",
+      "Call-quality support",
+    ],
+    action: "Discuss Voice Services",
+  },
+  {
+    number: "03",
+    title: "DID Numbers",
+    description:
+      "Business telephone numbers for inbound calling, connected to VICIdial, PBX, or other supported systems.",
+    features: [
+      "DID provisioning",
+      "Inbound routing",
+      "Number configuration",
+      "VICIdial & PBX integration",
+      "Number management",
+    ],
+    action: "Get DID Numbers",
+  },
+  {
+    number: "04",
+    title: "PBX & Call Center Systems",
+    description:
+      "PBX and call-center systems configured around your users, call flows, and business requirements.",
+    features: [
+      "PBX installation & configuration",
+      "Extensions & users",
+      "IVR & call flows",
+      "Inbound & outbound routing",
+      "Call-center configuration",
+      "System integration",
+    ],
+    action: "Discuss Your PBX",
+  },
+  {
+    number: "05",
+    title: "Managed Servers",
+    description:
+      "Dedicated server infrastructure for VICIdial, PBX, and other business applications, with ongoing management.",
+    features: [
+      "Server deployment",
+      "Linux configuration",
+      "Security configuration",
+      "System updates",
+      "Monitoring & maintenance",
+      "Technical troubleshooting",
+    ],
+    action: "Discuss Server Hosting",
+  },
+  {
+    number: "06",
+    title: "Technical Support",
+    description:
+      "Technical support for VICIdial, PBX, SIP, servers, routing, connectivity, and call-quality issues.",
+    features: [
+      "VICIdial troubleshooting",
+      "PBX & SIP support",
+      "Server troubleshooting",
+      "Routing & connectivity",
+      "Call-quality troubleshooting",
+    ],
+    action: "Request Technical Support",
+  },
+];
 
 export default function ServicesPage() {
   return (
-    <>
-      <Starfield />
-      <PageIllustration />
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-20">
-        <div className="text-center pb-12">
-          <div className="inline-flex items-center gap-3 pb-3 before:h-px before:w-8 before:bg-gradient-to-r before:from-transparent before:to-indigo-200/50 after:h-px after:w-8 after:bg-gradient-to-l after:from-transparent after:to-indigo-200/50">
-            <span className="inline-flex bg-gradient-to-r from-indigo-500 to-indigo-200 bg-clip-text text-transparent">
-              Our Solutions
-            </span>
+    <main
+      className="bg-[#070B13] text-[#F3F5F7]"
+      style={{
+        fontFamily:
+          'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      }}
+    >
+      {/* =========================================================
+          HEADER
+      ========================================================= */}
+      <section className="border-b border-[#202B3D] bg-[#070B13]">
+        <div className="mx-auto max-w-7xl px-6 pb-16 pt-28 sm:px-8 lg:px-10 lg:pb-20 lg:pt-36">
+          <div className="mx-auto max-w-5xl text-center">
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-[#B8944A] sm:text-base">
+              Services
+            </p>
+
+            <h1 className="mt-4 text-5xl font-semibold leading-[1.08] tracking-[-0.015em] text-[#F3F5F7] sm:text-6xl lg:text-7xl">
+              Call Center, Voice & Infrastructure Services
+            </h1>
+
+            <p className="mx-auto mt-5 max-w-3xl text-base font-normal leading-8 tracking-normal text-[#AEB6C2] sm:text-lg">
+              The infrastructure and services you need to run your calling operations — from VICIdial and SIP to DIDs, PBX systems, servers, and technical support.
+            </p>
           </div>
-          <h1 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl mb-4">
-            Enterprise Telecommunications Solutions
-          </h1>
-          <p className="text-lg text-indigo-200/65 mb-8 max-w-3xl mx-auto">
-            Comprehensive solutions designed to accelerate your business growth and maximize operational efficiency across all communication channels.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
-            <div className="rounded-xl bg-gradient-to-br from-gray-900/50 via-gray-800/25 to-gray-900/50 p-6 border border-gray-800 hover:border-indigo-500/30 transition-all" data-aos="fade-up" data-aos-delay="100">
-              <div className="w-12 h-12 rounded-lg bg-indigo-500/20 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
-                </svg>
+        </div>
+      </section>
+
+      {/* =========================================================
+          SERVICES
+      ========================================================= */}
+      <section className="border-b border-[#202B3D] bg-[#090F18]">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10 lg:py-24">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {services.map((service) => (
+              <div
+                key={service.number}
+                className="group flex flex-col rounded-xl border border-[#202B3D] bg-[#0D1521] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-1 hover:border-[#334155] hover:bg-[#101A29]"
+              >
+                <div className="mb-5 flex h-9 w-9 items-center justify-center rounded-md border border-[#334155] bg-[#111C2B] transition-all duration-300 group-hover:border-[#67D391] group-hover:shadow-[0_0_20px_rgba(103,211,145,0.16)]">
+                  <span className="text-xs font-medium text-[#B8944A] transition-colors duration-300 group-hover:text-[#D0AE69]">
+                    {service.number}
+                  </span>
+                </div>
+
+                <h2 className="text-lg font-medium leading-7 tracking-normal text-[#F3F5F7]">
+                  {service.title}
+                </h2>
+
+                <p className="mt-3 text-sm font-normal leading-7 text-[#929DAB]">
+                  {service.description}
+                </p>
+
+                <ul className="mt-5 space-y-2.5">
+                  {service.features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="flex items-start gap-3 text-sm font-normal leading-5 text-[#DDE2E8]"
+                    >
+                      <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#67D391]" />
+
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-auto pt-6">
+                  <Link
+                    href="/get-started"
+                    className="text-sm font-medium text-[#B8944A] transition-colors duration-300 hover:text-[#D0AE69]"
+                  >
+                    {service.action} →
+                  </Link>
+                </div>
               </div>
-              <h3 className="font-semibold text-gray-200 mb-2">Scalable Infrastructure</h3>
-              <p className="text-sm text-indigo-200/65">Grow from startup to enterprise with infrastructure that scales with your business.</p>
-            </div>
-            <div className="rounded-xl bg-gradient-to-br from-gray-900/50 via-gray-800/25 to-gray-900/50 p-6 border border-gray-800 hover:border-indigo-500/30 transition-all" data-aos="fade-up" data-aos-delay="200">
-              <div className="w-12 h-12 rounded-lg bg-indigo-500/20 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-gray-200 mb-2">24/7 Global Support</h3>
-              <p className="text-sm text-indigo-200/65">Round-the-clock assistance from our expert team across multiple time zones.</p>
-            </div>
-            <div className="rounded-xl bg-gradient-to-br from-gray-900/50 via-gray-800/25 to-gray-900/50 p-6 border border-gray-800 hover:border-indigo-500/30 transition-all" data-aos="fade-up" data-aos-delay="300">
-              <div className="w-12 h-12 rounded-lg bg-indigo-500/20 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-gray-200 mb-2">Custom Integration</h3>
-              <p className="text-sm text-indigo-200/65">Seamless API integration with your existing systems and workflows.</p>
-            </div>
+            ))}
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-indigo-200/50">
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              <span>Scalable Infrastructure</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              <span>24/7 Support</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              <span>Custom Integration</span>
+        </div>
+      </section>
+
+      {/* =========================================================
+          CTA
+      ========================================================= */}
+      <section className="bg-[#070B13]">
+        <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10 lg:py-24">
+          <div className="rounded-xl border border-[#253146] bg-[#0C141F] p-8 text-center shadow-[0_22px_60px_rgba(0,0,0,0.32)] sm:p-10 lg:p-12">
+            <h2 className="text-3xl font-medium leading-[1.2] tracking-normal text-[#F3F5F7] sm:text-4xl">
+              Need Help Choosing a Service?
+            </h2>
+
+            <p className="mx-auto mt-4 max-w-2xl text-base font-normal leading-8 text-[#AEB6C2]">
+              Tell us what you are running, how many agents you have, and what
+              you need.
+            </p>
+
+            <p className="mx-auto mt-2 max-w-2xl text-base font-normal leading-8 text-[#AEB6C2]">
+              We&apos;ll review your requirements and discuss the appropriate
+              setup.
+            </p>
+
+            <div className="mt-7 flex justify-center">
+              <Link
+                href="/get-started"
+                className="inline-flex items-center justify-center rounded-md border border-[#67D391] bg-[#67D391] px-6 py-3 text-sm font-semibold text-[#06100B] shadow-[0_0_18px_rgba(103,211,145,0.24)] transition-all duration-300 hover:border-[#8AE0AA] hover:bg-[#8AE0AA] hover:shadow-[0_0_40px_rgba(103,211,145,0.72),0_0_85px_rgba(103,211,145,0.26)] motion-safe:animate-[pulse_3s_ease-in-out_infinite]"
+              >
+                Request a Quote
+              </Link>
             </div>
           </div>
         </div>
-      </div>
-      <Features />
-    </>
+      </section>
+    </main>
   );
 }
-

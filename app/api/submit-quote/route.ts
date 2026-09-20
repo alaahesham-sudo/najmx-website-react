@@ -1,9 +1,9 @@
 
-import { NextRequest, NextResponse } from 'next/server';
-import { validatePhoneByCountry } from '@/utils/phoneValidation';
+import { NextRequest, NextResponse } from "next/server";
+import { validatePhoneByCountry } from "@/utils/phoneValidation";
 
-const CONTACT_SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbyNyJQJ_WLDKPpIQZ952yu-Ptu9SOQeZfpHROIUwWGArXrYoFyBWG0G6EZnTFSEB2TF/exec';
+const QUOTE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbywtgblNfUqkIuOWZmIanKf1Hp6nKxmGSY8w5g5FvPRjFzIilUkoDKz4_KSkBuqhwWc2g/exec";
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,48 +11,48 @@ export async function POST(request: NextRequest) {
 
     // Validate required fields
     const requiredFields = [
-      'name',
-      'email',
-      'company',
-      'phone',
-      'country',
-      'service',
-      'usersAgents',
-      'hearAbout',
-      'message',
-      'consent',
+      "name",
+      "email",
+      "company",
+      "phone",
+      "country",
+      "service",
+      "contactMethod",
+      "hearAbout",
+      "message",
+      "consent",
     ];
 
     const missingFields = requiredFields.filter((field) => {
       const value = body[field];
 
-      if (typeof value === 'boolean') {
+      if (typeof value === "boolean") {
         return !value;
       }
 
-      return !value || String(value).trim() === '';
+      return !value || String(value).trim() === "";
     });
 
     if (missingFields.length > 0) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Missing required fields',
+          error: "Missing required fields",
           missingFields,
         },
         { status: 400 }
       );
     }
 
-    // Validate email format
+    // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(body.email)) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Invalid email format',
-          field: 'email',
+          error: "Invalid email format",
+          field: "email",
         },
         { status: 400 }
       );
@@ -61,15 +61,15 @@ export async function POST(request: NextRequest) {
     // Validate phone
     const phoneValidation = validatePhoneByCountry(
       body.phone,
-      body.country || ''
+      body.country || ""
     );
 
     if (!phoneValidation.valid) {
       return NextResponse.json(
         {
           success: false,
-          error: phoneValidation.error || 'Invalid phone number',
-          field: 'phone',
+          error: phoneValidation.error || "Invalid phone number",
+          field: "phone",
         },
         { status: 400 }
       );
@@ -80,44 +80,44 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Message must be at least 10 characters',
-          field: 'message',
+          error: "Please provide more details about your requirements.",
+          field: "message",
         },
         { status: 400 }
       );
     }
 
     // Collect submission metadata
-    const userAgent = request.headers.get('user-agent') || '';
-    const referrer = request.headers.get('referer') || '';
+    const userAgent = request.headers.get("user-agent") || "";
+    const referrer = request.headers.get("referer") || "";
 
-    const forwardedFor = request.headers.get('x-forwarded-for');
-    const realIp = request.headers.get('x-real-ip');
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    const realIp = request.headers.get("x-real-ip");
 
     const ip =
       realIp ||
-      forwardedFor?.split(',')[0].trim() ||
-      'Unknown';
+      forwardedFor?.split(",")[0].trim() ||
+      "Unknown";
 
     // Format timestamp in Cairo timezone
     const now = new Date();
 
-    const cairoTime = new Intl.DateTimeFormat('en-US', {
-      timeZone: 'Africa/Cairo',
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
+    const cairoTime = new Intl.DateTimeFormat("en-US", {
+      timeZone: "Africa/Cairo",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
       hour12: true,
     }).format(now);
 
     // Submit to Google Sheets via Apps Script
-    const response = await fetch(CONTACT_SCRIPT_URL, {
-      method: 'POST',
+    const response = await fetch(QUOTE_SCRIPT_URL, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: body.name,
@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
         phone: body.phone,
         country: body.country,
         service: body.service,
-        usersAgents: body.usersAgents,
+        contactMethod: body.contactMethod,
         hearAbout: body.hearAbout,
         message: body.message,
         consent: body.consent,
@@ -135,29 +135,30 @@ export async function POST(request: NextRequest) {
         ip,
         userAgent,
         referrer,
-        pageUrl: body.pageUrl || '',
+        pageUrl: body.pageUrl || "",
 
         timestamp: cairoTime,
       }),
     });
 
     if (!response.ok) {
-      throw new Error('Failed to submit to Google Sheets');
+      throw new Error("Failed to submit quote to Google Sheets");
     }
 
     await response.json();
 
     return NextResponse.json({
       success: true,
-      message: 'Your message has been submitted successfully!',
+      message:
+        "Your request has been submitted successfully. Thank you — the NajmX team will review your details and contact you shortly.",
     });
   } catch (error) {
-    console.error('Error submitting contact form:', error);
+    console.error("Error submitting quote form:", error);
 
     return NextResponse.json(
       {
         success: false,
-        error: 'Failed to submit message. Please try again later.',
+        error: "Failed to submit your request. Please try again later.",
       },
       { status: 500 }
     );

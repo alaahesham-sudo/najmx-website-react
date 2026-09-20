@@ -1,5 +1,8 @@
+
+import type { Metadata } from "next";
 import "./css/style.css";
 
+import BackToTop from "@/components/back-to-top";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 
@@ -8,6 +11,7 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
 });
+
 
 const nacelle = localFont({
   src: [
@@ -36,17 +40,75 @@ const nacelle = localFont({
   display: "swap",
 });
 
-export const metadata = {
-  title: "NajmX - Enterprise Telecommunications Solutions",
-  description: "Connecting businesses across the globe with enterprise telecommunications, IT services, and network solutions.",
+export const metadata: Metadata = {
+  metadataBase: new URL("https://najmx.net"),
+
+  title: {
+    default: "NajmX | VICIdial Hosting, VoIP & Call Center Infrastructure",
+    template: "%s | NajmX",
+  },
+
+  description:
+    "VICIdial hosting, VoIP and SIP connectivity, DID numbers, PBX systems, managed servers, and technical support for call centers and businesses.",
+
+  alternates: {
+    canonical: "https://najmx.net",
+  },
+
+  openGraph: {
+    type: "website",
+    url: "https://najmx.net",
+    siteName: "NajmX",
+    title: "NajmX | VICIdial Hosting, VoIP & Call Center Infrastructure",
+    description:
+      "VICIdial hosting, VoIP and SIP connectivity, DID numbers, PBX systems, managed servers, and technical support for call centers and businesses.",
+    images: [
+      {
+        url: "/images/najmx-logo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "NajmX - Call Center Infrastructure",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "NajmX | VICIdial Hosting, VoIP & Call Center Infrastructure",
+    description:
+      "VICIdial hosting, VoIP and SIP connectivity, DID numbers, PBX systems, managed servers, and technical support for call centers and businesses.",
+    images: ["/images/najmx-logo.jpg"],
+  },
+
   icons: {
     icon: [
-      { url: '/images/najmx-logo.jpg', sizes: '32x32', type: 'image/jpeg' },
-      { url: '/images/najmx-logo.jpg', sizes: '16x16', type: 'image/jpeg' },
+      {
+        url: "/images/najmx-logo.jpg",
+        sizes: "32x32",
+        type: "image/jpeg",
+      },
+      {
+        url: "/images/najmx-logo.jpg",
+        sizes: "16x16",
+        type: "image/jpeg",
+      },
     ],
-    shortcut: '/images/najmx-logo.jpg',
-    apple: '/images/najmx-logo.jpg',
+    shortcut: "/images/najmx-logo.jpg",
+    apple: "/images/najmx-logo.jpg",
   },
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://najmx.net/#organization",
+  name: "NajmX LLC",
+  url: "https://najmx.net",
+  logo: "https://najmx.net/images/najmx-logo.jpg",
+  description:
+    "VICIdial hosting, VoIP and SIP connectivity, DID numbers, PBX systems, managed servers, and technical support for call centers and businesses.",
+  email: "info@najmx.net",
+  sameAs: ["https://www.linkedin.com/company/najmxllc"],
 };
 
 export default function RootLayout({
@@ -61,7 +123,15 @@ export default function RootLayout({
       >
         <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
           {children}
+          <BackToTop />
         </div>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
       </body>
     </html>
   );

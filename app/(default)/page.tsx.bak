@@ -1,85 +1,88 @@
 import type { Metadata } from "next";
-import Starfield from "@/components/starfield";
 import PageIllustration from "@/components/page-illustration";
+import BackToTop from "@/components/back-to-top";
 
 export const metadata: Metadata = {
   title: "NajmX - VICIdial, VoIP & Call Center Infrastructure",
   description:
-    "Managed VICIdial hosting, VoIP/SIP connectivity, DIDs, PBX systems, and server infrastructure for call centers and businesses worldwide.",
+    "Managed VICIdial hosting, VoIP/SIP connectivity, DIDs, PBX systems, and server infrastructure for call centers and businesses.",
 };
 
 const services = [
   {
     title: "VICIdial & Dialer Hosting",
     description:
-      "Managed VICIdial hosting with installation, configuration, campaign setup, SIP integration, monitoring, and ongoing technical support.",
+      "Managed VICIdial infrastructure with installation, configuration, campaign setup, SIP integration, monitoring, and technical support.",
     action: "Discuss VICIdial",
   },
   {
     title: "VoIP & SIP",
     description:
-      "SIP connectivity for inbound and outbound calling, with routing, carrier integration, and call-quality support.",
+      "SIP connectivity for inbound and outbound calling, with routing, carrier integration, configuration, and call-quality support.",
     action: "Discuss Voice Services",
   },
   {
     title: "DID Numbers",
     description:
-      "Inbound and outbound telephone numbers with provisioning, routing, and integration with your calling platform.",
+      "Business telephone numbers with provisioning, inbound routing, and integration with VICIdial, PBX, and supported calling systems.",
     action: "Get DID Numbers",
-  },
-  {
-    title: "Managed Servers",
-    description:
-      "Dedicated server infrastructure for VICIdial, PBX, and other business applications, with setup, monitoring, maintenance, and support.",
-    action: "Discuss Server Hosting",
   },
   {
     title: "PBX & Call Center Systems",
     description:
-      "PBX and call-center systems configured around your business requirements, including IVR, call flows, extensions, and integrations.",
-    action: "Discuss Your Setup",
+      "PBX and call-center systems configured around your users, call flows, IVR, extensions, routing, and business requirements.",
+    action: "Discuss Your PBX",
+  },
+  {
+    title: "Managed Servers",
+    description:
+      "Dedicated server infrastructure for VICIdial, PBX, and other business applications, with deployment, monitoring, maintenance, and support.",
+    action: "Discuss Server Hosting",
   },
   {
     title: "Technical Support",
     description:
-      "Help with VICIdial, PBX, SIP, servers, routing, and call-quality issues.",
-    action: "Request Technical Help",
+      "Technical support for VICIdial, PBX, SIP, servers, routing, connectivity, and call-quality issues.",
+    action: "Request Technical Support",
   },
 ];
 
 const handledServices = [
   {
     title: "VICIdial",
-    description: "Dialer installation, campaigns, IVR, call flows",
+    description:
+      "Installation, configuration, campaigns, IVR, call flows, SIP integration, and ongoing support.",
   },
   {
     title: "VoIP & SIP",
-    description: "SIP connectivity, routing, carriers, call quality",
+    description:
+      "SIP connectivity, routing, carrier integration, configuration, and call-quality support.",
   },
   {
     title: "PBX",
-    description: "Extensions, inbound routing, IVR and business calling",
+    description:
+      "Extensions, users, IVR, inbound and outbound routing, and business calling systems.",
   },
   {
     title: "Servers",
-    description: "Linux infrastructure, deployment, monitoring and maintenance",
+    description:
+      "Linux infrastructure, deployment, security configuration, monitoring, maintenance, and troubleshooting.",
   },
 ];
 
 const processSteps = [
   "Understand your requirements",
   "Plan the appropriate infrastructure",
-  "Deploy and configure the server and systems",
+  "Deploy and configure the systems",
   "Connect SIP and DIDs",
-  "Configure campaigns, IVR and call flows",
+  "Configure campaigns, IVR, and call flows",
   "Test everything before launch",
   "Provide ongoing support and maintenance",
 ];
 
-export default function ProductsPage() {
+export default function Home() {
   return (
     <>
-      <Starfield />
       <PageIllustration />
 
       <main>
@@ -100,12 +103,12 @@ export default function ProductsPage() {
               <p className="mb-8 max-w-2xl text-lg text-indigo-200/65">
                 Managed VICIdial hosting, VoIP/SIP connectivity, DIDs, PBX
                 systems, and server infrastructure for call centers and
-                businesses worldwide.
+                businesses.
               </p>
 
               <div className="flex flex-wrap gap-4">
                 <a
-                  href="/contact"
+                  href="/get-started"
                   className="btn-sm bg-indigo-500 text-white shadow-sm hover:bg-indigo-600"
                 >
                   Request a Quote
@@ -131,6 +134,7 @@ export default function ProductsPage() {
                     <div className="text-sm text-indigo-200/50">
                       NajmX Infrastructure
                     </div>
+
                     <div className="mt-1 text-xl font-semibold text-gray-200">
                       Call Center Environment
                     </div>
@@ -169,6 +173,7 @@ export default function ProductsPage() {
                       <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-500/15 text-xs text-indigo-300">
                         {index + 1}
                       </div>
+
                       <span className="text-sm text-gray-300">{item}</span>
                     </div>
                   ))}
@@ -195,7 +200,7 @@ export default function ProductsPage() {
             </h2>
 
             <p className="mx-auto max-w-2xl text-lg text-indigo-200/65">
-              Everything you need to run and manage your calling
+              Everything you need to deploy, run, and manage your calling
               infrastructure.
             </p>
           </div>
@@ -223,7 +228,7 @@ export default function ProductsPage() {
                 </p>
 
                 <a
-                  href="/contact"
+                  href="/get-started"
                   className="text-sm font-medium text-indigo-400 transition-colors hover:text-indigo-300"
                 >
                   {service.action} →
@@ -277,6 +282,7 @@ export default function ProductsPage() {
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-500/15 text-indigo-300">
                     ✓
                   </span>
+
                   <span className="text-sm text-gray-300">{item}</span>
                 </div>
               ))}
@@ -397,6 +403,8 @@ export default function ProductsPage() {
           </div>
         </section>
       </main>
+
+      <BackToTop />
     </>
   );
 }
