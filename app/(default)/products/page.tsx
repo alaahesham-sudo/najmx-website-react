@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Starfield from "@/components/starfield";
 import PageIllustration from "@/components/page-illustration";
 
 export const metadata: Metadata = {
@@ -79,7 +78,6 @@ const processSteps = [
 export default function ProductsPage() {
   return (
     <>
-      <Starfield />
       <PageIllustration />
 
       <main>

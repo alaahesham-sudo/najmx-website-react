@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Starfield from "@/components/starfield";
 import PageIllustration from "@/components/page-illustration";
 import { validatePhoneByCountry } from "@/utils/phoneValidation";
 
@@ -186,7 +185,6 @@ export default function CareersPage() {
 
   return (
     <>
-      <Starfield />
       <PageIllustration />
       <section className="relative">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-32 pb-20">

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Starfield from "@/components/starfield";
 import PageIllustration from "@/components/page-illustration";
 
 export const metadata: Metadata = {
@@ -10,7 +9,6 @@ export const metadata: Metadata = {
 export default function NajmVoIPPage() {
   return (
     <>
-      <Starfield />
       <PageIllustration />
       <section className="relative">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-32 pb-20">

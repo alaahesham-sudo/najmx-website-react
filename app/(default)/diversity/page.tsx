@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Starfield from "@/components/starfield";
 import PageIllustration from "@/components/page-illustration";
 import Image from "next/image";
 
@@ -11,7 +10,6 @@ export const metadata: Metadata = {
 export default function DiversityPage() {
   return (
     <>
-      <Starfield />
       <PageIllustration />
       <section className="relative">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-32 pb-20">
