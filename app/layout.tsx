@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import "./css/style.css";
 
@@ -11,7 +10,6 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
 });
-
 
 const nacelle = localFont({
   src: [
@@ -81,20 +79,9 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: [
-      {
-        url: "/images/najmx-logo.jpg",
-        sizes: "32x32",
-        type: "image/jpeg",
-      },
-      {
-        url: "/images/najmx-logo.jpg",
-        sizes: "16x16",
-        type: "image/jpeg",
-      },
-    ],
-    shortcut: "/images/najmx-logo.jpg",
-    apple: "/images/najmx-logo.jpg",
+    icon: "/images/najmx-logo.png",
+    shortcut: "/images/najmx-logo.png",
+    apple: "/images/najmx-logo.png",
   },
 };
 
