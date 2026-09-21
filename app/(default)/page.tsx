@@ -186,7 +186,7 @@ export default function Home() {
               </p>
 
               <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-[1.08] tracking-[-0.015em] text-[#F3F5F7] sm:text-6xl lg:text-7xl">
-                VICIdial, VoIP & Call Center Infrastructure
+                VICIdial, VoIP & Call Center Infrastructure Services
               </h1>
 
               <p className="mt-6 max-w-3xl text-lg font-normal leading-8 tracking-normal text-[#C3CBD5] sm:text-xl sm:leading-9">
